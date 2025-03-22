@@ -120,13 +120,11 @@ class Bomb(pygame.sprite.Sprite):
 
     def explode(self):
         explosion_radius = 40  # 폭발 반경을 40으로 줄임
+        global enemies_killed  # 전역 변수 사용
         for enemy in enemies:
-            if pygame.sprite.collide_circle_ratio(explosion_radius / self.rect.width)(
-                self, enemy
-            ):
+            if pygame.sprite.collide_circle_ratio(explosion_radius / self.rect.width)(self, enemy):
                 enemy.kill()
-                global enemies_killed
-                enemies_killed += 1
+                enemies_killed += 1  # 적 처치 시 킬 수 증가
 
 
 # Enemy class
@@ -289,11 +287,9 @@ while running:
             enemies.add(enemy)
 
     # Check for bomb-enemy collisions
-    bomb_hits = pygame.sprite.groupcollide(bombs, enemies, True, True)
-    for hit in bomb_hits:
-        hit.explode()  # 폭발 효과 적용
-        if random.random() < 0.1:  # 10% 확률로 아이템 생성
-            create_powerup(hit.rect.centerx, hit.rect.centery)
+    bomb_hits = pygame.sprite.groupcollide(bombs, enemies, True, False)
+    for bomb in bomb_hits:
+        bomb.explode()  # 폭발 효과 적용
         if enemies_killed >= enemies_per_round:
             round_num += 1
             enemies_killed = 0
@@ -301,9 +297,10 @@ while running:
             create_enemies(10)  # Create initial enemies for the new round
             display_round_message(round_num)
         else:
-            enemy = Enemy()
-            all_sprites.add(enemy)
-            enemies.add(enemy)
+            while len(enemies) < 10:  # 적의 수를 유지
+                enemy = Enemy()
+                all_sprites.add(enemy)
+                enemies.add(enemy)
 
     # Check for player-enemy collisions
     player_hits = pygame.sprite.spritecollide(player, enemies, True)

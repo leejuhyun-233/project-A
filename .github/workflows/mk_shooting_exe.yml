@@ -34,7 +34,7 @@ jobs:
         with:
           name: shooting-game-assets
           path: |
-            ai_pairprogramming/dist/shooting_game.exe
-            ai_pairprogramming/dist/background_music.mp3
-            ai_pairprogramming/dist/background.jpg
-            ai_pairprogramming/dist/fighter.png
+            dist/shooting_game.exe
+            dist/background_music.mp3
+            dist/background.jpg
+            dist/fighter.png
