@@ -1,0 +1,42 @@
+name: 주현이 슈팅게임 윈도우 실행 파일 만들기
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-exe:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          cd ai_pairprogramming
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install --upgrade pyinstaller
+
+      - name: Copy Python files and Build EXE with PyInstaller
+        run: |
+          cd ai_pairprogramming
+          pyinstaller -F --onefile shooting_game.py
+
+      - name: Upload shooting_game.exe artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shooting-game-assets
+          path: |
+            ai_pairprogramming/dist/shooting_game.exe
+            ai_pairprogramming/dist/background_music.mp3
+            ai_pairprogramming/dist/background.jpg
+            ai_pairprogramming/dist/fighter.png
