@@ -35,6 +35,6 @@ jobs:
           name: shooting-game-assets
           path: |
             dist/shooting_game.exe
-            dist/background_music.mp3
-            dist/background.jpg
-            dist/fighter.png
+            background_music.mp3
+            background.jpg
+            fighter.png
