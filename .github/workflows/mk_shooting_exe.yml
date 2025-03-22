@@ -1,6 +1,9 @@
 name: 주현이 슈팅게임 윈도우 실행 파일 만들기
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main

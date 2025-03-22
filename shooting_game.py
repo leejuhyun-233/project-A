@@ -122,7 +122,9 @@ class Bomb(pygame.sprite.Sprite):
         explosion_radius = 40  # 폭발 반경을 40으로 줄임
         global enemies_killed  # 전역 변수 사용
         for enemy in enemies:
-            if pygame.sprite.collide_circle_ratio(explosion_radius / self.rect.width)(self, enemy):
+            if pygame.sprite.collide_circle_ratio(explosion_radius / self.rect.width)(
+                self, enemy
+            ):
                 enemy.kill()
                 enemies_killed += 1  # 적 처치 시 킬 수 증가
 
