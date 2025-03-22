@@ -21,14 +21,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd ai_pairprogramming
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install --upgrade pyinstaller
 
       - name: Copy Python files and Build EXE with PyInstaller
         run: |
-          cd ai_pairprogramming
           pyinstaller -F --onefile shooting_game.py
 
       - name: Upload shooting_game.exe artifact
